@@ -1,0 +1,363 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="apple-mobile-web-app-title" content="İngilizce">
+    <title>İngilizce Öğrenme</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            color: white;
+            padding: 20px;
+        }
+        
+        .container {
+            max-width: 400px;
+            margin: 0 auto;
+        }
+        
+        .header {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+        
+        .header h1 {
+            font-size: 28px;
+            margin-bottom: 10px;
+        }
+        
+        .nav {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 30px;
+        }
+        
+        .nav-btn {
+            flex: 1;
+            padding: 12px;
+            border: none;
+            border-radius: 10px;
+            background: rgba(255,255,255,0.2);
+            color: white;
+            cursor: pointer;
+            font-size: 14px;
+            transition: all 0.3s;
+        }
+        
+        .nav-btn.active {
+            background: rgba(255,255,255,0.3);
+            transform: scale(1.05);
+        }
+        
+        .content {
+            background: rgba(255,255,255,0.1);
+            border-radius: 15px;
+            padding: 20px;
+            backdrop-filter: blur(10px);
+        }
+        
+        .grammar-topic {
+            margin-bottom: 25px;
+            padding: 15px;
+            background: rgba(255,255,255,0.1);
+            border-radius: 10px;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+        
+        .grammar-topic:hover {
+            background: rgba(255,255,255,0.2);
+            transform: translateY(-2px);
+        }
+        
+        .grammar-topic h3 {
+            font-size: 18px;
+            margin-bottom: 10px;
+        }
+        
+        .grammar-topic p {
+            font-size: 14px;
+            opacity: 0.9;
+        }
+        
+        .example {
+            background: rgba(0,0,0,0.2);
+            padding: 10px;
+            border-radius: 8px;
+            margin-top: 10px;
+            font-style: italic;
+        }
+        
+        .quiz-container {
+            display: none;
+        }
+        
+        .question {
+            background: rgba(255,255,255,0.1);
+            padding: 20px;
+            border-radius: 10px;
+            margin-bottom: 20px;
+        }
+        
+        .question h3 {
+            margin-bottom: 15px;
+            font-size: 18px;
+        }
+        
+        .options {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+        
+        .option {
+            padding: 12px;
+            border: 2px solid rgba(255,255,255,0.3);
+            border-radius: 8px;
+            background: rgba(255,255,255,0.1);
+            color: white;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+        
+        .option:hover {
+            background: rgba(255,255,255,0.2);
+            border-color: rgba(255,255,255,0.5);
+        }
+        
+        .option.correct {
+            background: rgba(34,197,94,0.3);
+            border-color: #22c55e;
+        }
+        
+        .option.wrong {
+            background: rgba(239,68,68,0.3);
+            border-color: #ef4444;
+        }
+        
+        .next-btn {
+            width: 100%;
+            padding: 15px;
+            border: none;
+            border-radius: 10px;
+            background: rgba(255,255,255,0.2);
+            color: white;
+            font-size: 16px;
+            cursor: pointer;
+            margin-top: 20px;
+            display: none;
+        }
+        
+        .next-btn:hover {
+            background: rgba(255,255,255,0.3);
+        }
+        
+        .score {
+            text-align: center;
+            font-size: 18px;
+            margin-bottom: 20px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>🇬🇧 İngilizce</h1>
+            <p>Cümle Yapıları</p>
+        </div>
+        
+        <div class="nav">
+            <button class="nav-btn active" onclick="showSection('grammar')">Gramer</button>
+            <button class="nav-btn" onclick="showSection('quiz')">Quiz</button>
+        </div>
+        
+        <div class="content">
+            <!-- Gramer Bölümü -->
+            <div id="grammar-section">
+                <div class="grammar-topic" onclick="showTopic('present-simple')">
+                    <h3>Present Simple</h3>
+                    <p>Günlük alışkanlıklar ve genel gerçekler</p>
+                    <div class="example">
+                        "I play football every day."
+                    </div>
+                </div>
+                
+                <div class="grammar-topic" onclick="showTopic('present-continuous')">
+                    <h3>Present Continuous</h3>
+                    <p>Şu anda devam eden eylemler</p>
+                    <div class="example">
+                        "I am playing football now."
+                    </div>
+                </div>
+                
+                <div class="grammar-topic" onclick="showTopic('past-simple')">
+                    <h3>Past Simple</h3>
+                    <p>Geçmişte tamamlanan eylemler</p>
+                    <div class="example">
+                        "I played football yesterday."
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Quiz Bölümü -->
+            <div id="quiz-section" class="quiz-container">
+                <div class="score">Skor: <span id="score">0</span>/3</div>
+                <div id="quiz-content"></div>
+                <button class="next-btn" id="next-btn" onclick="nextQuestion()">Sonraki Soru</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Veri
+        const grammarData = {
+            'present-simple': {
+                title: 'Present Simple',
+                rules: [
+                    'Olumlu: Subject + Verb (I play)',
+                    'Olumsuz: Subject + don\'t/doesn\'t + Verb (I don\'t play)',
+                    'Soru: Do/Does + Subject + Verb? (Do you play?)'
+                ],
+                examples: [
+                    'I work every day. (Her gün çalışırım.)',
+                    'She doesn\'t like coffee. (Kahve sevmez.)',
+                    'Do they live here? (Burada yaşıyorlar mı?)'
+                ]
+            }
+        };
+        
+        const quizData = [
+            {
+                question: "Hangi cümle Present Simple'dır?",
+                options: [
+                    "I am working now",
+                    "I work every day", 
+                    "I worked yesterday",
+                    "I will work tomorrow"
+                ],
+                correct: 1
+            },
+            {
+                question: "Olumsuz cümle hangisidir?",
+                options: [
+                    "She plays tennis",
+                    "She is playing tennis",
+                    "She doesn't play tennis",
+                    "She played tennis"
+                ],
+                correct: 2
+            },
+            {
+                question: "Soru cümlesi hangisidir?",
+                options: [
+                    "You like music",
+                    "Do you like music?",
+                    "You don't like music",
+                    "You are liking music"
+                ],
+                correct: 1
+            }
+        ];
+        
+        let currentQuestion = 0;
+        let score = 0;
+        let answered = false;
+        
+        function showSection(section) {
+            // Nav butonları
+            document.querySelectorAll('.nav-btn').forEach(btn => btn.classList.remove('active'));
+            event.target.classList.add('active');
+            
+            // Bölümler
+            if (section === 'grammar') {
+                document.getElementById('grammar-section').style.display = 'block';
+                document.getElementById('quiz-section').style.display = 'none';
+            } else {
+                document.getElementById('grammar-section').style.display = 'none';
+                document.getElementById('quiz-section').style.display = 'block';
+                startQuiz();
+            }
+        }
+        
+        function showTopic(topic) {
+            const data = grammarData[topic];
+            if (data) {
+                alert(`${data.title}\n\nKurallar:\n${data.rules.join('\n')}\n\nÖrnekler:\n${data.examples.join('\n')}`);
+            }
+        }
+        
+        function startQuiz() {
+            currentQuestion = 0;
+            score = 0;
+            answered = false;
+            document.getElementById('score').textContent = score;
+            showQuestion();
+        }
+        
+        function showQuestion() {
+            if (currentQuestion >= quizData.length) {
+                document.getElementById('quiz-content').innerHTML = `
+                    <div class="question">
+                        <h3>🎉 Quiz Tamamlandı!</h3>
+                        <p>Skorunuz: ${score}/${quizData.length}</p>
+                        <button onclick="startQuiz()" style="width:100%; padding:12px; margin-top:15px; border:none; border-radius:8px; background:rgba(255,255,255,0.2); color:white; cursor:pointer;">Tekrar Dene</button>
+                    </div>
+                `;
+                return;
+            }
+            
+            const question = quizData[currentQuestion];
+            const optionsHtml = question.options.map((option, index) => 
+                `<div class="option" onclick="selectOption(${index})">${option}</div>`
+            ).join('');
+            
+            document.getElementById('quiz-content').innerHTML = `
+                <div class="question">
+                    <h3>Soru ${currentQuestion + 1}/${quizData.length}</h3>
+                    <p>${question.question}</p>
+                    <div class="options">
+                        ${optionsHtml}
+                    </div>
+                </div>
+            `;
+            
+            document.getElementById('next-btn').style.display = 'none';
+            answered = false;
+        }
+        
+        function selectOption(selectedIndex) {
+            if (answered) return;
+            
+            const question = quizData[currentQuestion];
+            const options = document.querySelectorAll('.option');
+            
+            options[selectedIndex].classList.add(selectedIndex === question.correct ? 'correct' : 'wrong');
+            options[question.correct].classList.add('correct');
+            
+            if (selectedIndex === question.correct) {
+                score++;
+                document.getElementById('score').textContent = score;
+            }
+            
+            answered = true;
+            document.getElementById('next-btn').style.display = 'block';
+        }
+        
+        function nextQuestion() {
+            currentQuestion++;
+            showQuestion();
+        }
+    </script>
+</body>
+</html>
