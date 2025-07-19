@@ -37,21 +37,38 @@
             margin-bottom: 10px;
         }
         
+        .stats {
+            display: flex;
+            justify-content: space-around;
+            margin-bottom: 20px;
+            font-size: 14px;
+        }
+        
+        .stat {
+            text-align: center;
+        }
+        
+        .stat-number {
+            font-size: 20px;
+            font-weight: bold;
+            display: block;
+        }
+        
         .nav {
             display: flex;
-            gap: 10px;
+            gap: 8px;
             margin-bottom: 30px;
         }
         
         .nav-btn {
             flex: 1;
-            padding: 12px;
+            padding: 12px 8px;
             border: none;
             border-radius: 10px;
             background: rgba(255,255,255,0.2);
             color: white;
             cursor: pointer;
-            font-size: 14px;
+            font-size: 12px;
             transition: all 0.3s;
         }
         
@@ -67,106 +84,140 @@
             backdrop-filter: blur(10px);
         }
         
-        .grammar-topic {
-            margin-bottom: 25px;
-            padding: 15px;
+        .word-card {
             background: rgba(255,255,255,0.1);
+            border-radius: 15px;
+            padding: 30px;
+            text-align: center;
+            margin-bottom: 20px;
+            min-height: 200px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+        
+        .word-front {
+            font-size: 32px;
+            font-weight: bold;
+            margin-bottom: 20px;
+        }
+        
+        .word-back {
+            font-size: 24px;
+            opacity: 0.9;
+            display: none;
+        }
+        
+        .word-back.show {
+            display: block;
+        }
+        
+        .card-buttons {
+            display: flex;
+            gap: 10px;
+            margin-top: 20px;
+        }
+        
+        .btn {
+            flex: 1;
+            padding: 12px;
+            border: none;
             border-radius: 10px;
+            color: white;
             cursor: pointer;
+            font-size: 14px;
             transition: all 0.3s;
         }
         
-        .grammar-topic:hover {
-            background: rgba(255,255,255,0.2);
-            transform: translateY(-2px);
+        .btn-show {
+            background: rgba(59, 130, 246, 0.8);
         }
         
-        .grammar-topic h3 {
-            font-size: 18px;
+        .btn-know {
+            background: rgba(34, 197, 94, 0.8);
+        }
+        
+        .btn-next {
+            background: rgba(168, 85, 247, 0.8);
+        }
+        
+        .btn-dont-know {
+            background: rgba(239, 68, 68, 0.8);
+        }
+        
+        .btn:hover {
+            transform: scale(1.05);
+        }
+        
+        .word-list {
+            max-height: 400px;
+            overflow-y: auto;
+        }
+        
+        .word-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 12px;
+            background: rgba(255,255,255,0.1);
+            border-radius: 8px;
+            margin-bottom: 8px;
+        }
+        
+        .word-info {
+            flex: 1;
+        }
+        
+        .word-eng {
+            font-weight: bold;
+            font-size: 16px;
+        }
+        
+        .word-tr {
+            font-size: 14px;
+            opacity: 0.8;
+        }
+        
+        .word-actions {
+            display: flex;
+            gap: 8px;
+        }
+        
+        .btn-small {
+            padding: 6px 12px;
+            border: none;
+            border-radius: 6px;
+            color: white;
+            cursor: pointer;
+            font-size: 12px;
+        }
+        
+        .btn-remove {
+            background: rgba(239, 68, 68, 0.8);
+        }
+        
+        .btn-add {
+            background: rgba(34, 197, 94, 0.8);
+        }
+        
+        .empty-state {
+            text-align: center;
+            padding: 40px;
+            opacity: 0.7;
+        }
+        
+        .empty-state h3 {
             margin-bottom: 10px;
         }
         
-        .grammar-topic p {
-            font-size: 14px;
-            opacity: 0.9;
+        .progress-ring {
+            margin: 20px auto;
+            width: 100px;
+            height: 100px;
         }
         
-        .example {
-            background: rgba(0,0,0,0.2);
-            padding: 10px;
-            border-radius: 8px;
-            margin-top: 10px;
-            font-style: italic;
-        }
-        
-        .quiz-container {
+        .hidden {
             display: none;
-        }
-        
-        .question {
-            background: rgba(255,255,255,0.1);
-            padding: 20px;
-            border-radius: 10px;
-            margin-bottom: 20px;
-        }
-        
-        .question h3 {
-            margin-bottom: 15px;
-            font-size: 18px;
-        }
-        
-        .options {
-            display: flex;
-            flex-direction: column;
-            gap: 10px;
-        }
-        
-        .option {
-            padding: 12px;
-            border: 2px solid rgba(255,255,255,0.3);
-            border-radius: 8px;
-            background: rgba(255,255,255,0.1);
-            color: white;
-            cursor: pointer;
-            transition: all 0.3s;
-        }
-        
-        .option:hover {
-            background: rgba(255,255,255,0.2);
-            border-color: rgba(255,255,255,0.5);
-        }
-        
-        .option.correct {
-            background: rgba(34,197,94,0.3);
-            border-color: #22c55e;
-        }
-        
-        .option.wrong {
-            background: rgba(239,68,68,0.3);
-            border-color: #ef4444;
-        }
-        
-        .next-btn {
-            width: 100%;
-            padding: 15px;
-            border: none;
-            border-radius: 10px;
-            background: rgba(255,255,255,0.2);
-            color: white;
-            font-size: 16px;
-            cursor: pointer;
-            margin-top: 20px;
-            display: none;
-        }
-        
-        .next-btn:hover {
-            background: rgba(255,255,255,0.3);
-        }
-        
-        .score {
-            text-align: center;
-            font-size: 18px;
-            margin-bottom: 20px;
         }
     </style>
 </head>
@@ -174,190 +225,314 @@
     <div class="container">
         <div class="header">
             <h1>🇬🇧 İngilizce</h1>
-            <p>Cümle Yapıları</p>
+            <div class="stats">
+                <div class="stat">
+                    <span class="stat-number" id="total-words">0</span>
+                    <span>Toplam</span>
+                </div>
+                <div class="stat">
+                    <span class="stat-number" id="known-words">0</span>
+                    <span>Bilinen</span>
+                </div>
+                <div class="stat">
+                    <span class="stat-number" id="learning-words">0</span>
+                    <span>Öğreniliyor</span>
+                </div>
+            </div>
         </div>
         
         <div class="nav">
-            <button class="nav-btn active" onclick="showSection('grammar')">Gramer</button>
+            <button class="nav-btn active" onclick="showSection('cards')">Kartlar</button>
+            <button class="nav-btn" onclick="showSection('known')">Bilinen</button>
+            <button class="nav-btn" onclick="showSection('all')">Tümü</button>
             <button class="nav-btn" onclick="showSection('quiz')">Quiz</button>
         </div>
         
         <div class="content">
-            <!-- Gramer Bölümü -->
-            <div id="grammar-section">
-                <div class="grammar-topic" onclick="showTopic('present-simple')">
-                    <h3>Present Simple</h3>
-                    <p>Günlük alışkanlıklar ve genel gerçekler</p>
-                    <div class="example">
-                        "I play football every day."
-                    </div>
-                </div>
-                
-                <div class="grammar-topic" onclick="showTopic('present-continuous')">
-                    <h3>Present Continuous</h3>
-                    <p>Şu anda devam eden eylemler</p>
-                    <div class="example">
-                        "I am playing football now."
-                    </div>
-                </div>
-                
-                <div class="grammar-topic" onclick="showTopic('past-simple')">
-                    <h3>Past Simple</h3>
-                    <p>Geçmişte tamamlanan eylemler</p>
-                    <div class="example">
-                        "I played football yesterday."
+            <!-- Kelime Kartları -->
+            <div id="cards-section">
+                <div id="word-card" class="word-card">
+                    <div class="word-front" id="word-front">Kart yükleniyor...</div>
+                    <div class="word-back" id="word-back">...</div>
+                    <div class="card-buttons">
+                        <button class="btn btn-show" id="show-btn" onclick="showAnswer()">Göster</button>
+                        <button class="btn btn-know hidden" onclick="markAsKnown()">✓ Biliyorum</button>
+                        <button class="btn btn-dont-know hidden" onclick="markAsUnknown()">✗ Bilmiyorum</button>
+                        <button class="btn btn-next hidden" onclick="nextCard()">Sonraki</button>
                     </div>
                 </div>
             </div>
             
+            <!-- Bilinen Kelimeler -->
+            <div id="known-section" class="hidden">
+                <div id="known-list" class="word-list"></div>
+            </div>
+            
+            <!-- Tüm Kelimeler -->
+            <div id="all-section" class="hidden">
+                <div id="all-list" class="word-list"></div>
+            </div>
+            
             <!-- Quiz Bölümü -->
-            <div id="quiz-section" class="quiz-container">
-                <div class="score">Skor: <span id="score">0</span>/3</div>
-                <div id="quiz-content"></div>
-                <button class="next-btn" id="next-btn" onclick="nextQuestion()">Sonraki Soru</button>
+            <div id="quiz-section" class="hidden">
+                <div id="quiz-content">
+                    <div class="empty-state">
+                        <h3>Quiz hazırlanıyor...</h3>
+                        <p>Henüz yeterli kelime yok</p>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
 
     <script>
-        // Veri
-        const grammarData = {
-            'present-simple': {
-                title: 'Present Simple',
-                rules: [
-                    'Olumlu: Subject + Verb (I play)',
-                    'Olumsuz: Subject + don\'t/doesn\'t + Verb (I don\'t play)',
-                    'Soru: Do/Does + Subject + Verb? (Do you play?)'
-                ],
-                examples: [
-                    'I work every day. (Her gün çalışırım.)',
-                    'She doesn\'t like coffee. (Kahve sevmez.)',
-                    'Do they live here? (Burada yaşıyorlar mı?)'
-                ]
-            }
-        };
-        
-        const quizData = [
-            {
-                question: "Hangi cümle Present Simple'dır?",
-                options: [
-                    "I am working now",
-                    "I work every day", 
-                    "I worked yesterday",
-                    "I will work tomorrow"
-                ],
-                correct: 1
-            },
-            {
-                question: "Olumsuz cümle hangisidir?",
-                options: [
-                    "She plays tennis",
-                    "She is playing tennis",
-                    "She doesn't play tennis",
-                    "She played tennis"
-                ],
-                correct: 2
-            },
-            {
-                question: "Soru cümlesi hangisidir?",
-                options: [
-                    "You like music",
-                    "Do you like music?",
-                    "You don't like music",
-                    "You are liking music"
-                ],
-                correct: 1
-            }
+        // Kelime veritabanı
+        const wordsDatabase = [
+            { eng: "hello", tr: "merhaba", level: "A1" },
+            { eng: "goodbye", tr: "hoşçakal", level: "A1" },
+            { eng: "thank you", tr: "teşekkür ederim", level: "A1" },
+            { eng: "please", tr: "lütfen", level: "A1" },
+            { eng: "sorry", tr: "özür dilerim", level: "A1" },
+            { eng: "yes", tr: "evet", level: "A1" },
+            { eng: "no", tr: "hayır", level: "A1" },
+            { eng: "water", tr: "su", level: "A1" },
+            { eng: "food", tr: "yemek", level: "A1" },
+            { eng: "house", tr: "ev", level: "A1" },
+            { eng: "car", tr: "araba", level: "A1" },
+            { eng: "book", tr: "kitap", level: "A1" },
+            { eng: "school", tr: "okul", level: "A1" },
+            { eng: "work", tr: "iş/çalışmak", level: "A1" },
+            { eng: "friend", tr: "arkadaş", level: "A1" },
+            { eng: "family", tr: "aile", level: "A1" },
+            { eng: "time", tr: "zaman", level: "A1" },
+            { eng: "good", tr: "iyi", level: "A1" },
+            { eng: "bad", tr: "kötü", level: "A1" },
+            { eng: "big", tr: "büyük", level: "A1" },
+            { eng: "small", tr: "küçük", level: "A1" },
+            { eng: "love", tr: "sevmek/aşk", level: "A2" },
+            { eng: "beautiful", tr: "güzel", level: "A2" },
+            { eng: "important", tr: "önemli", level: "A2" },
+            { eng: "different", tr: "farklı", level: "A2" }
         ];
         
-        let currentQuestion = 0;
-        let score = 0;
-        let answered = false;
+        // Kullanıcı verileri
+        let userData = {
+            knownWords: [],
+            unknownWords: [],
+            currentCardIndex: 0
+        };
         
+        // LocalStorage'dan veri yükle
+        function loadUserData() {
+            const saved = localStorage.getItem('englishAppData');
+            if (saved) {
+                userData = { ...userData, ...JSON.parse(saved) };
+            }
+        }
+        
+        // LocalStorage'a veri kaydet
+        function saveUserData() {
+            localStorage.setItem('englishAppData', JSON.stringify(userData));
+        }
+        
+        // İstatistikleri güncelle
+        function updateStats() {
+            const total = wordsDatabase.length;
+            const known = userData.knownWords.length;
+            const learning = total - known;
+            
+            document.getElementById('total-words').textContent = total;
+            document.getElementById('known-words').textContent = known;
+            document.getElementById('learning-words').textContent = learning;
+        }
+        
+        // Öğrenilecek kelimeleri al (bilinen kelimeler hariç)
+        function getWordsToLearn() {
+            return wordsDatabase.filter(word => !userData.knownWords.includes(word.eng));
+        }
+        
+        // Kelime kartını göster
+        function showCard() {
+            const wordsToLearn = getWordsToLearn();
+            
+            if (wordsToLearn.length === 0) {
+                document.getElementById('word-front').textContent = "🎉 Tebrikler!";
+                document.getElementById('word-back').textContent = "Tüm kelimeleri öğrendiniz!";
+                document.querySelector('.card-buttons').innerHTML = '<button class="btn btn-next" onclick="resetProgress()">Baştan Başla</button>';
+                return;
+            }
+            
+            // Rastgele kelime seç
+            const randomIndex = Math.floor(Math.random() * wordsToLearn.length);
+            const currentWord = wordsToLearn[randomIndex];
+            
+            document.getElementById('word-front').textContent = currentWord.eng;
+            document.getElementById('word-back').textContent = currentWord.tr;
+            document.getElementById('word-back').classList.remove('show');
+            
+            // Butonları sıfırla
+            document.getElementById('show-btn').classList.remove('hidden');
+            document.querySelector('.btn-know').classList.add('hidden');
+            document.querySelector('.btn-dont-know').classList.add('hidden');
+            document.querySelector('.btn-next').classList.add('hidden');
+            
+            // Mevcut kelimeyi kaydet
+            window.currentWord = currentWord;
+        }
+        
+        // Cevabı göster
+        function showAnswer() {
+            document.getElementById('word-back').classList.add('show');
+            document.getElementById('show-btn').classList.add('hidden');
+            document.querySelector('.btn-know').classList.remove('hidden');
+            document.querySelector('.btn-dont-know').classList.remove('hidden');
+        }
+        
+        // Kelimeyi bilinen olarak işaretle
+        function markAsKnown() {
+            if (window.currentWord && !userData.knownWords.includes(window.currentWord.eng)) {
+                userData.knownWords.push(window.currentWord.eng);
+                saveUserData();
+                updateStats();
+                showNextButton("✓ Bilinen kelimeler listesine eklendi!");
+            }
+        }
+        
+        // Kelimeyi bilmeyen olarak işaretle
+        function markAsUnknown() {
+            if (window.currentWord && !userData.unknownWords.includes(window.currentWord.eng)) {
+                userData.unknownWords.push(window.currentWord.eng);
+                saveUserData();
+                showNextButton("Tekrar gösterilecek");
+            }
+        }
+        
+        // Sonraki butonu göster
+        function showNextButton(message) {
+            document.querySelector('.btn-know').classList.add('hidden');
+            document.querySelector('.btn-dont-know').classList.add('hidden');
+            const nextBtn = document.querySelector('.btn-next');
+            nextBtn.classList.remove('hidden');
+            nextBtn.textContent = "Sonraki Kart";
+        }
+        
+        // Sonraki karta geç
+        function nextCard() {
+            showCard();
+        }
+        
+        // Bilinen kelimeleri listele
+        function showKnownWords() {
+            const container = document.getElementById('known-list');
+            
+            if (userData.knownWords.length === 0) {
+                container.innerHTML = '<div class="empty-state"><h3>Henüz bilinen kelime yok</h3><p>Kartlarda kelimeleri öğrenmeye başla!</p></div>';
+                return;
+            }
+            
+            const knownWordsData = wordsDatabase.filter(word => userData.knownWords.includes(word.eng));
+            
+            container.innerHTML = knownWordsData.map(word => `
+                <div class="word-item">
+                    <div class="word-info">
+                        <div class="word-eng">${word.eng}</div>
+                        <div class="word-tr">${word.tr}</div>
+                    </div>
+                    <div class="word-actions">
+                        <button class="btn-small btn-remove" onclick="removeFromKnown('${word.eng}')">Kaldır</button>
+                    </div>
+                </div>
+            `).join('');
+        }
+        
+        // Tüm kelimeleri listele
+        function showAllWords() {
+            const container = document.getElementById('all-list');
+            
+            container.innerHTML = wordsDatabase.map(word => {
+                const isKnown = userData.knownWords.includes(word.eng);
+                return `
+                    <div class="word-item">
+                        <div class="word-info">
+                            <div class="word-eng">${word.eng} ${isKnown ? '✓' : ''}</div>
+                            <div class="word-tr">${word.tr}</div>
+                        </div>
+                        <div class="word-actions">
+                            ${isKnown ? 
+                                `<button class="btn-small btn-remove" onclick="removeFromKnown('${word.eng}')">Kaldır</button>` :
+                                `<button class="btn-small btn-add" onclick="addToKnown('${word.eng}')">Biliyorum</button>`
+                            }
+                        </div>
+                    </div>
+                `;
+            }).join('');
+        }
+        
+        // Bilinen kelimelerden kaldır
+        function removeFromKnown(word) {
+            userData.knownWords = userData.knownWords.filter(w => w !== word);
+            saveUserData();
+            updateStats();
+            showKnownWords();
+            showAllWords();
+        }
+        
+        // Bilinen kelimelere ekle
+        function addToKnown(word) {
+            if (!userData.knownWords.includes(word)) {
+                userData.knownWords.push(word);
+                saveUserData();
+                updateStats();
+                showAllWords();
+            }
+        }
+        
+        // İlerlemeyi sıfırla
+        function resetProgress() {
+            if (confirm('Tüm ilerleme sıfırlanacak. Emin misiniz?')) {
+                userData.knownWords = [];
+                userData.unknownWords = [];
+                saveUserData();
+                updateStats();
+                showCard();
+            }
+        }
+        
+        // Bölüm göster
         function showSection(section) {
             // Nav butonları
             document.querySelectorAll('.nav-btn').forEach(btn => btn.classList.remove('active'));
             event.target.classList.add('active');
             
-            // Bölümler
-            if (section === 'grammar') {
-                document.getElementById('grammar-section').style.display = 'block';
-                document.getElementById('quiz-section').style.display = 'none';
-            } else {
-                document.getElementById('grammar-section').style.display = 'none';
-                document.getElementById('quiz-section').style.display = 'block';
-                startQuiz();
+            // Bölümleri gizle
+            document.querySelectorAll('[id$="-section"]').forEach(el => el.classList.add('hidden'));
+            
+            // Seçilen bölümü göster
+            document.getElementById(section + '-section').classList.remove('hidden');
+            
+            // Bölüme özel işlemler
+            switch(section) {
+                case 'cards':
+                    showCard();
+                    break;
+                case 'known':
+                    showKnownWords();
+                    break;
+                case 'all':
+                    showAllWords();
+                    break;
+                case 'quiz':
+                    // Quiz henüz implementasyonda değil
+                    break;
             }
         }
         
-        function showTopic(topic) {
-            const data = grammarData[topic];
-            if (data) {
-                alert(`${data.title}\n\nKurallar:\n${data.rules.join('\n')}\n\nÖrnekler:\n${data.examples.join('\n')}`);
-            }
-        }
-        
-        function startQuiz() {
-            currentQuestion = 0;
-            score = 0;
-            answered = false;
-            document.getElementById('score').textContent = score;
-            showQuestion();
-        }
-        
-        function showQuestion() {
-            if (currentQuestion >= quizData.length) {
-                document.getElementById('quiz-content').innerHTML = `
-                    <div class="question">
-                        <h3>🎉 Quiz Tamamlandı!</h3>
-                        <p>Skorunuz: ${score}/${quizData.length}</p>
-                        <button onclick="startQuiz()" style="width:100%; padding:12px; margin-top:15px; border:none; border-radius:8px; background:rgba(255,255,255,0.2); color:white; cursor:pointer;">Tekrar Dene</button>
-                    </div>
-                `;
-                return;
-            }
-            
-            const question = quizData[currentQuestion];
-            const optionsHtml = question.options.map((option, index) => 
-                `<div class="option" onclick="selectOption(${index})">${option}</div>`
-            ).join('');
-            
-            document.getElementById('quiz-content').innerHTML = `
-                <div class="question">
-                    <h3>Soru ${currentQuestion + 1}/${quizData.length}</h3>
-                    <p>${question.question}</p>
-                    <div class="options">
-                        ${optionsHtml}
-                    </div>
-                </div>
-            `;
-            
-            document.getElementById('next-btn').style.display = 'none';
-            answered = false;
-        }
-        
-        function selectOption(selectedIndex) {
-            if (answered) return;
-            
-            const question = quizData[currentQuestion];
-            const options = document.querySelectorAll('.option');
-            
-            options[selectedIndex].classList.add(selectedIndex === question.correct ? 'correct' : 'wrong');
-            options[question.correct].classList.add('correct');
-            
-            if (selectedIndex === question.correct) {
-                score++;
-                document.getElementById('score').textContent = score;
-            }
-            
-            answered = true;
-            document.getElementById('next-btn').style.display = 'block';
-        }
-        
-        function nextQuestion() {
-            currentQuestion++;
-            showQuestion();
-        }
+        // Sayfa yüklendiğinde
+        window.onload = function() {
+            loadUserData();
+            updateStats();
+            showCard();
+        };
     </script>
 </body>
 </html>
