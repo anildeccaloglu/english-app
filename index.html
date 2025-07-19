@@ -6,7 +6,7 @@
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
     <meta name="apple-mobile-web-app-title" content="İngilizce">
-    <title>İngilizce Öğrenme - Sesli Test</title>
+    <title>İngilizce Öğrenme Uygulaması</title>
     <style>
         * {
             margin: 0;
@@ -16,382 +16,342 @@
         
         body {
             font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            background: linear-gradient(135deg, #1e40af 0%, #7c3aed 50%, #db2777 100%);
             min-height: 100vh;
             color: white;
             padding: 20px;
+            overflow-x: hidden;
         }
         
         .container {
-            max-width: 400px;
+            max-width: 420px;
             margin: 0 auto;
         }
         
         .header {
             text-align: center;
             margin-bottom: 30px;
+            padding: 20px 0;
         }
         
         .header h1 {
-            font-size: 28px;
-            margin-bottom: 10px;
+            font-size: 32px;
+            font-weight: 700;
+            margin-bottom: 8px;
+            background: linear-gradient(45deg, #fbbf24, #f59e0b);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
         }
         
         .header p {
-            opacity: 0.8;
             font-size: 16px;
-        }
-        
-        .content {
-            background: rgba(255,255,255,0.1);
-            border-radius: 15px;
-            padding: 20px;
-            backdrop-filter: blur(10px);
-        }
-        
-        .word-card {
-            background: rgba(255,255,255,0.1);
-            border-radius: 15px;
-            padding: 30px;
-            text-align: center;
-            margin-bottom: 20px;
-            min-height: 250px;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-        }
-        
-        .word-counter {
-            font-size: 14px;
-            opacity: 0.7;
-            margin-bottom: 20px;
-        }
-        
-        .word-english {
-            font-size: 36px;
-            font-weight: bold;
-            margin-bottom: 15px;
-            color: #fbbf24;
-        }
-        
-        .word-turkish {
-            font-size: 24px;
             opacity: 0.9;
+            font-weight: 300;
+        }
+        
+        .section {
+            background: rgba(255, 255, 255, 0.08);
+            backdrop-filter: blur(20px);
+            border-radius: 20px;
             margin-bottom: 25px;
-            display: none;
+            padding: 20px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            transition: all 0.3s ease;
         }
         
-        .word-turkish.show {
-            display: block;
+        .section:hover {
+            background: rgba(255, 255, 255, 0.12);
+            transform: translateY(-2px);
         }
         
-        .card-buttons {
+        .section-header {
             display: flex;
-            flex-direction: column;
+            align-items: center;
             gap: 12px;
-        }
-        
-        .btn-row {
-            display: flex;
-            gap: 10px;
-        }
-        
-        .btn {
-            flex: 1;
-            padding: 14px;
-            border: none;
-            border-radius: 10px;
-            color: white;
+            margin-bottom: 18px;
             cursor: pointer;
-            font-size: 16px;
-            transition: all 0.3s;
+        }
+        
+        .section-icon {
+            font-size: 24px;
+            width: 40px;
+            height: 40px;
             display: flex;
             align-items: center;
             justify-content: center;
-            gap: 8px;
+            background: rgba(255, 255, 255, 0.15);
+            border-radius: 12px;
         }
         
-        .btn-speak {
-            background: rgba(34, 197, 94, 0.8);
+        .section-title {
+            font-size: 20px;
+            font-weight: 600;
+            flex: 1;
         }
         
-        .btn-show {
-            background: rgba(59, 130, 246, 0.8);
+        .expand-icon {
+            font-size: 18px;
+            transition: transform 0.3s ease;
         }
         
-        .btn-next {
-            background: rgba(168, 85, 247, 0.8);
+        .section.expanded .expand-icon {
+            transform: rotate(180deg);
         }
         
-        .btn-auto {
-            background: rgba(249, 115, 22, 0.8);
+        .section-content {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.4s ease;
         }
         
-        .btn:hover {
-            transform: scale(1.05);
+        .section.expanded .section-content {
+            max-height: 1000px;
         }
         
-        .btn:disabled {
-            opacity: 0.5;
-            cursor: not-allowed;
-            transform: none;
+        .category {
+            margin-bottom: 20px;
         }
         
-        .speaking-indicator {
-            display: none;
-            align-items: center;
-            justify-content: center;
-            gap: 10px;
-            padding: 15px;
-            background: rgba(34, 197, 94, 0.2);
-            border-radius: 10px;
-            margin-bottom: 15px;
-        }
-        
-        .speaking-indicator.active {
-            display: flex;
-        }
-        
-        .voice-settings {
-            margin-top: 15px;
-            padding: 15px;
-            background: rgba(0,0,0,0.2);
-            border-radius: 10px;
-        }
-        
-        .voice-setting {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 10px;
-        }
-        
-        .voice-setting:last-child {
+        .category:last-child {
             margin-bottom: 0;
         }
         
-        .voice-setting label {
+        .category-title {
+            font-size: 16px;
+            font-weight: 600;
+            margin-bottom: 12px;
+            color: #fbbf24;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        
+        .level-badge {
+            font-size: 11px;
+            background: rgba(251, 191, 36, 0.2);
+            padding: 3px 8px;
+            border-radius: 12px;
+            border: 1px solid rgba(251, 191, 36, 0.3);
+        }
+        
+        .topics {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 8px;
+        }
+        
+        .topic {
+            background: rgba(255, 255, 255, 0.1);
+            padding: 12px;
+            border-radius: 12px;
+            font-size: 14px;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        
+        .topic:hover {
+            background: rgba(255, 255, 255, 0.2);
+            transform: scale(1.02);
+        }
+        
+        .topic:active {
+            transform: scale(0.98);
+        }
+        
+        /* Özel renkler */
+        .education .section-icon { background: rgba(59, 130, 246, 0.3); }
+        .words .section-icon { background: rgba(34, 197, 94, 0.3); }
+        .sentences .section-icon { background: rgba(168, 85, 247, 0.3); }
+        .exercises .section-icon { background: rgba(249, 115, 22, 0.3); }
+        
+        .footer {
+            text-align: center;
+            margin-top: 40px;
+            padding: 20px;
+            opacity: 0.7;
             font-size: 14px;
         }
         
-        .voice-setting select,
-        .voice-setting input {
-            background: rgba(255,255,255,0.1);
-            border: 1px solid rgba(255,255,255,0.3);
-            border-radius: 5px;
-            color: white;
-            padding: 5px;
-        }
-        
-        .hidden {
-            display: none;
+        @media (max-width: 380px) {
+            .topics {
+                grid-template-columns: 1fr;
+            }
+            
+            .container {
+                padding: 0 10px;
+            }
         }
     </style>
 </head>
 <body>
     <div class="container">
         <div class="header">
-            <h1>🔊 Sesli Kelime Kartları</h1>
-            <p>Test Sürümü</p>
+            <h1>🇬🇧 İngilizce Öğrenme</h1>
+            <p>Kapsamlı İngilizce Eğitim Platformu</p>
         </div>
         
-        <div class="content">
-            <div class="word-card">
-                <div class="word-counter" id="word-counter">1 / 10</div>
-                
-                <div class="speaking-indicator" id="speaking-indicator">
-                    <span>🔊</span>
-                    <span>Konuşuyor...</span>
+        <!-- EĞİTİM KONULARI -->
+        <div class="section education" onclick="toggleSection('education')">
+            <div class="section-header">
+                <div class="section-icon">📚</div>
+                <div class="section-title">Eğitim Konuları</div>
+                <div class="expand-icon">▼</div>
+            </div>
+            <div class="section-content">
+                <div class="category">
+                    <div class="category-title">
+                        <span>🌱 Başlangıç</span>
+                        <span class="level-badge">A1-A2</span>
+                    </div>
+                    <div class="topics">
+                        <div class="topic" onclick="openTopic('be-acilimi')">Be Açılımı</div>
+                        <div class="topic" onclick="openTopic('filli-cumleler')">Filli Cümleler</div>
+                    </div>
                 </div>
                 
-                <div class="word-english" id="word-english">apple</div>
-                <div class="word-turkish" id="word-turkish">elma</div>
-                
-                <div class="card-buttons">
-                    <div class="btn-row">
-                        <button class="btn btn-speak" id="speak-btn" onclick="speakWord()">
-                            🔊 Seslendir
-                        </button>
-                        <button class="btn btn-show" id="show-btn" onclick="showTranslation()">
-                            👁️ Göster
-                        </button>
+                <div class="category">
+                    <div class="category-title">
+                        <span>⚡ Kalfalık</span>
+                        <span class="level-badge">B1</span>
                     </div>
-                    
-                    <div class="btn-row">
-                        <button class="btn btn-next" onclick="nextWord()">
-                            ➡️ Sonraki
-                        </button>
-                        <button class="btn btn-auto" id="auto-btn" onclick="toggleAutoSpeak()">
-                            🔄 Otomatik Kapalı
-                        </button>
+                    <div class="topics">
+                        <div class="topic" onclick="openTopic('edilgen-catili')">Edilgen Çatılı Fiiller</div>
+                        <div class="topic" onclick="openTopic('modal-verbs-1')">Modal Verbs-1</div>
+                        <div class="topic" onclick="openTopic('modal-verbs-2')">Modal Verbs-2</div>
+                    </div>
+                </div>
+                
+                <div class="category">
+                    <div class="category-title">
+                        <span>🔥 Ustalık</span>
+                        <span class="level-badge">B2</span>
+                    </div>
+                    <div class="topics">
+                        <div class="topic" onclick="openTopic('baglaclar-1')">Bağlaçlar-1</div>
+                        <div class="topic" onclick="openTopic('baglaclar-2')">Bağlaçlar-2</div>
+                        <div class="topic" onclick="openTopic('wh-how')">WH / HOW Kullanımı</div>
+                    </div>
+                </div>
+                
+                <div class="category">
+                    <div class="category-title">
+                        <span>👑 Mentor</span>
+                        <span class="level-badge">C1</span>
+                    </div>
+                    <div class="topics">
+                        <div class="topic" onclick="openTopic('if-clauses')">If Clauses</div>
+                        <div class="topic" onclick="openTopic('ettirgen-catili')">Ettirgen Çatılı Fiiller</div>
                     </div>
                 </div>
             </div>
-            
-            <div class="voice-settings">
-                <div class="voice-setting">
-                    <label>Ses Hızı:</label>
-                    <input type="range" id="rate-slider" min="0.5" max="2" step="0.1" value="1" onchange="updateVoiceSettings()">
-                </div>
-                <div class="voice-setting">
-                    <label>Ses Tonu:</label>
-                    <input type="range" id="pitch-slider" min="0.5" max="2" step="0.1" value="1" onchange="updateVoiceSettings()">
-                </div>
-                <div class="voice-setting">
-                    <label>Aksan:</label>
-                    <select id="voice-select" onchange="updateVoiceSettings()">
-                        <option value="en-US">🇺🇸 American</option>
-                        <option value="en-GB">🇬🇧 British</option>
-                        <option value="en-AU">🇦🇺 Australian</option>
-                    </select>
+        </div>
+        
+        <!-- KELİME ÖĞREN -->
+        <div class="section words" onclick="toggleSection('words')">
+            <div class="section-header">
+                <div class="section-icon">💭</div>
+                <div class="section-title">Kelime Öğren</div>
+                <div class="expand-icon">▼</div>
+            </div>
+            <div class="section-content">
+                <div class="topics">
+                    <div class="topic" onclick="openTopic('isimler')">İsimler</div>
+                    <div class="topic" onclick="openTopic('fiiller')">Fiiller</div>
+                    <div class="topic" onclick="openTopic('sifatlar')">Sıfatlar</div>
+                    <div class="topic" onclick="openTopic('zarflar')">Zarflar</div>
+                    <div class="topic" onclick="openTopic('edatlar')">Edatlar</div>
+                    <div class="topic" onclick="openTopic('baglaclar')">Bağlaçlar</div>
+                    <div class="topic" onclick="openTopic('zamirler')">Zamirler</div>
+                    <div class="topic" onclick="openTopic('gunluk-hayat')">Günlük Hayat</div>
+                    <div class="topic" onclick="openTopic('is-ingilizcesi')">İş İngilizcesi</div>
+                    <div class="topic" onclick="openTopic('seyahat')">Seyahat</div>
+                    <div class="topic" onclick="openTopic('acil-durumlar')">Acil Durumlar</div>
+                    <div class="topic" onclick="openTopic('mental-fiiller')">Mental Fiiller</div>
                 </div>
             </div>
+        </div>
+        
+        <!-- CÜMLELER -->
+        <div class="section sentences" onclick="toggleSection('sentences')">
+            <div class="section-header">
+                <div class="section-icon">💬</div>
+                <div class="section-title">Cümleler</div>
+                <div class="expand-icon">▼</div>
+            </div>
+            <div class="section-content">
+                <div class="topics">
+                    <div class="topic" onclick="openTopic('deyimler-ifadeler')">Deyimler&İfadeler</div>
+                    <div class="topic" onclick="openTopic('baglacli-cumleler')">Bağlaçlı Cümleler</div>
+                    <div class="topic" onclick="openTopic('gunluk-konusmalar')">Günlük Konuşmalar</div>
+                    <div class="topic" onclick="openTopic('fiilli-cumleler-basic')">Fiilli Cümleler(Basic)</div>
+                    <div class="topic" onclick="openTopic('be-cumleler')">"Be" Cümleler</div>
+                    <div class="topic" onclick="openTopic('edilgen-catili-cumleler')">Edilgen Çatılı</div>
+                    <div class="topic" onclick="openTopic('modal-verbs-cumleler')">Modal Verbs</div>
+                    <div class="topic" onclick="openTopic('wh-how-cumleler')">WH/HOW</div>
+                    <div class="topic" onclick="openTopic('if-clauses-cumleler')">If Clauses</div>
+                    <div class="topic" onclick="openTopic('ettirgen-catili-cumleler')">Ettirgen Çatılı</div>
+                    <div class="topic" onclick="openTopic('soru-cumleleri')">Soru Cümleleri</div>
+                    <div class="topic" onclick="openTopic('olumsuz-cumleler')">Olumsuz Cümleler</div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- ALIŞTIRMALAR -->
+        <div class="section exercises" onclick="toggleSection('exercises')">
+            <div class="section-header">
+                <div class="section-icon">🎯</div>
+                <div class="section-title">Alıştırmalar</div>
+                <div class="expand-icon">▼</div>
+            </div>
+            <div class="section-content">
+                <div class="topics">
+                    <div class="topic" onclick="openTopic('kelimeler-alistirma')">Kelimeler</div>
+                    <div class="topic" onclick="openTopic('cumle-kurma-temel')">Cümle Kurma(Özne+Yüklem)</div>
+                    <div class="topic" onclick="openTopic('cumle-kurma-gelismis')">Cümle Kurma(Gelişmiş)</div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="footer">
+            <p>🚀 Kişisel İngilizce Öğrenme Platformu</p>
         </div>
     </div>
 
     <script>
-        // Test kelimeleri
-        const testWords = [
-            { eng: "apple", tr: "elma" },
-            { eng: "book", tr: "kitap" },
-            { eng: "car", tr: "araba" },
-            { eng: "dog", tr: "köpek" },
-            { eng: "house", tr: "ev" },
-            { eng: "water", tr: "su" },
-            { eng: "friend", tr: "arkadaş" },
-            { eng: "school", tr: "okul" },
-            { eng: "beautiful", tr: "güzel" },
-            { eng: "important", tr: "önemli" }
-        ];
-        
-        let currentWordIndex = 0;
-        let autoSpeak = false;
-        let speechSettings = {
-            rate: 1,
-            pitch: 1,
-            lang: 'en-US'
-        };
-        
-        // Ses sentezi kontrol
-        function speakWord() {
-            const word = testWords[currentWordIndex].eng;
+        // Bölüm açma/kapama
+        function toggleSection(sectionName) {
+            const section = document.querySelector(`.${sectionName}`);
+            section.classList.toggle('expanded');
             
-            // Eğer zaten konuşuyorsa dur
-            if (speechSynthesis.speaking) {
-                speechSynthesis.cancel();
-                hideSpeakingIndicator();
-                return;
-            }
-            
-            // Ses sentezi oluştur
-            const utterance = new SpeechSynthesisUtterance(word);
-            utterance.lang = speechSettings.lang;
-            utterance.rate = speechSettings.rate;
-            utterance.pitch = speechSettings.pitch;
-            
-            // Konuşma olayları
-            utterance.onstart = () => {
-                showSpeakingIndicator();
-                document.getElementById('speak-btn').textContent = '⏸️ Durdur';
-            };
-            
-            utterance.onend = () => {
-                hideSpeakingIndicator();
-                document.getElementById('speak-btn').innerHTML = '🔊 Seslendir';
-            };
-            
-            utterance.onerror = () => {
-                hideSpeakingIndicator();
-                document.getElementById('speak-btn').innerHTML = '🔊 Seslendir';
-                alert('Ses özelliği şu anda kullanılamıyor');
-            };
-            
-            // Konuş
-            speechSynthesis.speak(utterance);
+            // Diğer bölümleri kapat (isteğe bağlı)
+            // document.querySelectorAll('.section').forEach(s => {
+            //     if (!s.classList.contains(sectionName)) {
+            //         s.classList.remove('expanded');
+            //     }
+            // });
         }
         
-        // Konuşma göstergesini göster
-        function showSpeakingIndicator() {
-            document.getElementById('speaking-indicator').classList.add('active');
-        }
-        
-        // Konuşma göstergesini gizle
-        function hideSpeakingIndicator() {
-            document.getElementById('speaking-indicator').classList.remove('active');
-        }
-        
-        // Çeviriyi göster
-        function showTranslation() {
-            document.getElementById('word-turkish').classList.add('show');
-            document.getElementById('show-btn').style.opacity = '0.5';
-            document.getElementById('show-btn').disabled = true;
-        }
-        
-        // Sonraki kelime
-        function nextWord() {
-            // Konuşmayı durdur
-            speechSynthesis.cancel();
-            hideSpeakingIndicator();
+        // Konu açma
+        function openTopic(topicId) {
+            // Click event'in parent'a bubble etmesini engelle
+            event.stopPropagation();
             
-            // Sonraki kelimeye geç
-            currentWordIndex = (currentWordIndex + 1) % testWords.length;
+            // Henüz içerik yok, geliştirme aşamasında
+            alert(`"${topicId}" konusu açılacak.\n\nİçerik geliştirme aşamasında...`);
             
-            // Kartı güncelle
-            updateCard();
-            
-            // Otomatik konuşma
-            if (autoSpeak) {
-                setTimeout(speakWord, 500);
-            }
+            // İleride burası şöyle olacak:
+            // window.location.href = `topic.html?id=${topicId}`;
+            // veya
+            // showTopicContent(topicId);
         }
         
-        // Kartı güncelle
-        function updateCard() {
-            const word = testWords[currentWordIndex];
-            
-            document.getElementById('word-counter').textContent = `${currentWordIndex + 1} / ${testWords.length}`;
-            document.getElementById('word-english').textContent = word.eng;
-            document.getElementById('word-turkish').textContent = word.tr;
-            document.getElementById('word-turkish').classList.remove('show');
-            
-            // Göster butonunu resetle
-            const showBtn = document.getElementById('show-btn');
-            showBtn.style.opacity = '1';
-            showBtn.disabled = false;
-            
-            // Seslendir butonunu resetle
-            document.getElementById('speak-btn').innerHTML = '🔊 Seslendir';
-        }
-        
-        // Otomatik konuşmayı aç/kapat
-        function toggleAutoSpeak() {
-            autoSpeak = !autoSpeak;
-            const btn = document.getElementById('auto-btn');
-            btn.innerHTML = autoSpeak ? '🔄 Otomatik Açık' : '🔄 Otomatik Kapalı';
-            btn.style.background = autoSpeak ? 'rgba(34, 197, 94, 0.8)' : 'rgba(249, 115, 22, 0.8)';
-        }
-        
-        // Ses ayarlarını güncelle
-        function updateVoiceSettings() {
-            speechSettings.rate = parseFloat(document.getElementById('rate-slider').value);
-            speechSettings.pitch = parseFloat(document.getElementById('pitch-slider').value);
-            speechSettings.lang = document.getElementById('voice-select').value;
-        }
-        
-        // Sayfa yüklendiğinde
+        // Sayfa yüklendiğinde ilk bölümü aç
         window.onload = function() {
-            updateCard();
-            
-            // Ses sentezi uyumluluğunu kontrol et
-            if (!('speechSynthesis' in window)) {
-                alert('Bu tarayıcı ses özelliklerini desteklemiyor');
-                document.getElementById('speak-btn').disabled = true;
-            }
-        };
-        
-        // Sayfa kapandığında konuşmayı durdur
-        window.onbeforeunload = function() {
-            speechSynthesis.cancel();
+            // İsteğe bağlı: İlk bölümü otomatik aç
+            // toggleSection('education');
         };
     </script>
 </body>
