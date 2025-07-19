@@ -6,7 +6,7 @@
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
     <meta name="apple-mobile-web-app-title" content="İngilizce">
-    <title>İngilizce Öğrenme</title>
+    <title>İngilizce Öğrenme - Sesli Test</title>
     <style>
         * {
             margin: 0;
@@ -37,44 +37,9 @@
             margin-bottom: 10px;
         }
         
-        .stats {
-            display: flex;
-            justify-content: space-around;
-            margin-bottom: 20px;
-            font-size: 14px;
-        }
-        
-        .stat {
-            text-align: center;
-        }
-        
-        .stat-number {
-            font-size: 20px;
-            font-weight: bold;
-            display: block;
-        }
-        
-        .nav {
-            display: flex;
-            gap: 8px;
-            margin-bottom: 30px;
-        }
-        
-        .nav-btn {
-            flex: 1;
-            padding: 12px 8px;
-            border: none;
-            border-radius: 10px;
-            background: rgba(255,255,255,0.2);
-            color: white;
-            cursor: pointer;
-            font-size: 12px;
-            transition: all 0.3s;
-        }
-        
-        .nav-btn.active {
-            background: rgba(255,255,255,0.3);
-            transform: scale(1.05);
+        .header p {
+            opacity: 0.8;
+            font-size: 16px;
         }
         
         .content {
@@ -90,130 +55,132 @@
             padding: 30px;
             text-align: center;
             margin-bottom: 20px;
-            min-height: 200px;
+            min-height: 250px;
             display: flex;
             flex-direction: column;
             justify-content: center;
         }
         
-        .word-front {
-            font-size: 32px;
-            font-weight: bold;
+        .word-counter {
+            font-size: 14px;
+            opacity: 0.7;
             margin-bottom: 20px;
         }
         
-        .word-back {
+        .word-english {
+            font-size: 36px;
+            font-weight: bold;
+            margin-bottom: 15px;
+            color: #fbbf24;
+        }
+        
+        .word-turkish {
             font-size: 24px;
             opacity: 0.9;
+            margin-bottom: 25px;
             display: none;
         }
         
-        .word-back.show {
+        .word-turkish.show {
             display: block;
         }
         
         .card-buttons {
             display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+        
+        .btn-row {
+            display: flex;
             gap: 10px;
-            margin-top: 20px;
         }
         
         .btn {
             flex: 1;
-            padding: 12px;
+            padding: 14px;
             border: none;
             border-radius: 10px;
             color: white;
             cursor: pointer;
-            font-size: 14px;
+            font-size: 16px;
             transition: all 0.3s;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+        }
+        
+        .btn-speak {
+            background: rgba(34, 197, 94, 0.8);
         }
         
         .btn-show {
             background: rgba(59, 130, 246, 0.8);
         }
         
-        .btn-know {
-            background: rgba(34, 197, 94, 0.8);
-        }
-        
         .btn-next {
             background: rgba(168, 85, 247, 0.8);
         }
         
-        .btn-dont-know {
-            background: rgba(239, 68, 68, 0.8);
+        .btn-auto {
+            background: rgba(249, 115, 22, 0.8);
         }
         
         .btn:hover {
             transform: scale(1.05);
         }
         
-        .word-list {
-            max-height: 400px;
-            overflow-y: auto;
+        .btn:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+            transform: none;
         }
         
-        .word-item {
+        .speaking-indicator {
+            display: none;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            padding: 15px;
+            background: rgba(34, 197, 94, 0.2);
+            border-radius: 10px;
+            margin-bottom: 15px;
+        }
+        
+        .speaking-indicator.active {
+            display: flex;
+        }
+        
+        .voice-settings {
+            margin-top: 15px;
+            padding: 15px;
+            background: rgba(0,0,0,0.2);
+            border-radius: 10px;
+        }
+        
+        .voice-setting {
             display: flex;
             justify-content: space-between;
             align-items: center;
-            padding: 12px;
-            background: rgba(255,255,255,0.1);
-            border-radius: 8px;
-            margin-bottom: 8px;
-        }
-        
-        .word-info {
-            flex: 1;
-        }
-        
-        .word-eng {
-            font-weight: bold;
-            font-size: 16px;
-        }
-        
-        .word-tr {
-            font-size: 14px;
-            opacity: 0.8;
-        }
-        
-        .word-actions {
-            display: flex;
-            gap: 8px;
-        }
-        
-        .btn-small {
-            padding: 6px 12px;
-            border: none;
-            border-radius: 6px;
-            color: white;
-            cursor: pointer;
-            font-size: 12px;
-        }
-        
-        .btn-remove {
-            background: rgba(239, 68, 68, 0.8);
-        }
-        
-        .btn-add {
-            background: rgba(34, 197, 94, 0.8);
-        }
-        
-        .empty-state {
-            text-align: center;
-            padding: 40px;
-            opacity: 0.7;
-        }
-        
-        .empty-state h3 {
             margin-bottom: 10px;
         }
         
-        .progress-ring {
-            margin: 20px auto;
-            width: 100px;
-            height: 100px;
+        .voice-setting:last-child {
+            margin-bottom: 0;
+        }
+        
+        .voice-setting label {
+            font-size: 14px;
+        }
+        
+        .voice-setting select,
+        .voice-setting input {
+            background: rgba(255,255,255,0.1);
+            border: 1px solid rgba(255,255,255,0.3);
+            border-radius: 5px;
+            color: white;
+            padding: 5px;
         }
         
         .hidden {
@@ -224,314 +191,207 @@
 <body>
     <div class="container">
         <div class="header">
-            <h1>🇬🇧 İngilizce</h1>
-            <div class="stats">
-                <div class="stat">
-                    <span class="stat-number" id="total-words">0</span>
-                    <span>Toplam</span>
-                </div>
-                <div class="stat">
-                    <span class="stat-number" id="known-words">0</span>
-                    <span>Bilinen</span>
-                </div>
-                <div class="stat">
-                    <span class="stat-number" id="learning-words">0</span>
-                    <span>Öğreniliyor</span>
-                </div>
-            </div>
-        </div>
-        
-        <div class="nav">
-            <button class="nav-btn active" onclick="showSection('cards')">Kartlar</button>
-            <button class="nav-btn" onclick="showSection('known')">Bilinen</button>
-            <button class="nav-btn" onclick="showSection('all')">Tümü</button>
-            <button class="nav-btn" onclick="showSection('quiz')">Quiz</button>
+            <h1>🔊 Sesli Kelime Kartları</h1>
+            <p>Test Sürümü</p>
         </div>
         
         <div class="content">
-            <!-- Kelime Kartları -->
-            <div id="cards-section">
-                <div id="word-card" class="word-card">
-                    <div class="word-front" id="word-front">Kart yükleniyor...</div>
-                    <div class="word-back" id="word-back">...</div>
-                    <div class="card-buttons">
-                        <button class="btn btn-show" id="show-btn" onclick="showAnswer()">Göster</button>
-                        <button class="btn btn-know hidden" onclick="markAsKnown()">✓ Biliyorum</button>
-                        <button class="btn btn-dont-know hidden" onclick="markAsUnknown()">✗ Bilmiyorum</button>
-                        <button class="btn btn-next hidden" onclick="nextCard()">Sonraki</button>
+            <div class="word-card">
+                <div class="word-counter" id="word-counter">1 / 10</div>
+                
+                <div class="speaking-indicator" id="speaking-indicator">
+                    <span>🔊</span>
+                    <span>Konuşuyor...</span>
+                </div>
+                
+                <div class="word-english" id="word-english">apple</div>
+                <div class="word-turkish" id="word-turkish">elma</div>
+                
+                <div class="card-buttons">
+                    <div class="btn-row">
+                        <button class="btn btn-speak" id="speak-btn" onclick="speakWord()">
+                            🔊 Seslendir
+                        </button>
+                        <button class="btn btn-show" id="show-btn" onclick="showTranslation()">
+                            👁️ Göster
+                        </button>
+                    </div>
+                    
+                    <div class="btn-row">
+                        <button class="btn btn-next" onclick="nextWord()">
+                            ➡️ Sonraki
+                        </button>
+                        <button class="btn btn-auto" id="auto-btn" onclick="toggleAutoSpeak()">
+                            🔄 Otomatik Kapalı
+                        </button>
                     </div>
                 </div>
             </div>
             
-            <!-- Bilinen Kelimeler -->
-            <div id="known-section" class="hidden">
-                <div id="known-list" class="word-list"></div>
-            </div>
-            
-            <!-- Tüm Kelimeler -->
-            <div id="all-section" class="hidden">
-                <div id="all-list" class="word-list"></div>
-            </div>
-            
-            <!-- Quiz Bölümü -->
-            <div id="quiz-section" class="hidden">
-                <div id="quiz-content">
-                    <div class="empty-state">
-                        <h3>Quiz hazırlanıyor...</h3>
-                        <p>Henüz yeterli kelime yok</p>
-                    </div>
+            <div class="voice-settings">
+                <div class="voice-setting">
+                    <label>Ses Hızı:</label>
+                    <input type="range" id="rate-slider" min="0.5" max="2" step="0.1" value="1" onchange="updateVoiceSettings()">
+                </div>
+                <div class="voice-setting">
+                    <label>Ses Tonu:</label>
+                    <input type="range" id="pitch-slider" min="0.5" max="2" step="0.1" value="1" onchange="updateVoiceSettings()">
+                </div>
+                <div class="voice-setting">
+                    <label>Aksan:</label>
+                    <select id="voice-select" onchange="updateVoiceSettings()">
+                        <option value="en-US">🇺🇸 American</option>
+                        <option value="en-GB">🇬🇧 British</option>
+                        <option value="en-AU">🇦🇺 Australian</option>
+                    </select>
                 </div>
             </div>
         </div>
     </div>
 
     <script>
-        // Kelime veritabanı
-        const wordsDatabase = [
-            { eng: "hello", tr: "merhaba", level: "A1" },
-            { eng: "goodbye", tr: "hoşçakal", level: "A1" },
-            { eng: "thank you", tr: "teşekkür ederim", level: "A1" },
-            { eng: "please", tr: "lütfen", level: "A1" },
-            { eng: "sorry", tr: "özür dilerim", level: "A1" },
-            { eng: "yes", tr: "evet", level: "A1" },
-            { eng: "no", tr: "hayır", level: "A1" },
-            { eng: "water", tr: "su", level: "A1" },
-            { eng: "food", tr: "yemek", level: "A1" },
-            { eng: "house", tr: "ev", level: "A1" },
-            { eng: "car", tr: "araba", level: "A1" },
-            { eng: "book", tr: "kitap", level: "A1" },
-            { eng: "school", tr: "okul", level: "A1" },
-            { eng: "work", tr: "iş/çalışmak", level: "A1" },
-            { eng: "friend", tr: "arkadaş", level: "A1" },
-            { eng: "family", tr: "aile", level: "A1" },
-            { eng: "time", tr: "zaman", level: "A1" },
-            { eng: "good", tr: "iyi", level: "A1" },
-            { eng: "bad", tr: "kötü", level: "A1" },
-            { eng: "big", tr: "büyük", level: "A1" },
-            { eng: "small", tr: "küçük", level: "A1" },
-            { eng: "love", tr: "sevmek/aşk", level: "A2" },
-            { eng: "beautiful", tr: "güzel", level: "A2" },
-            { eng: "important", tr: "önemli", level: "A2" },
-            { eng: "different", tr: "farklı", level: "A2" }
+        // Test kelimeleri
+        const testWords = [
+            { eng: "apple", tr: "elma" },
+            { eng: "book", tr: "kitap" },
+            { eng: "car", tr: "araba" },
+            { eng: "dog", tr: "köpek" },
+            { eng: "house", tr: "ev" },
+            { eng: "water", tr: "su" },
+            { eng: "friend", tr: "arkadaş" },
+            { eng: "school", tr: "okul" },
+            { eng: "beautiful", tr: "güzel" },
+            { eng: "important", tr: "önemli" }
         ];
         
-        // Kullanıcı verileri
-        let userData = {
-            knownWords: [],
-            unknownWords: [],
-            currentCardIndex: 0
+        let currentWordIndex = 0;
+        let autoSpeak = false;
+        let speechSettings = {
+            rate: 1,
+            pitch: 1,
+            lang: 'en-US'
         };
         
-        // LocalStorage'dan veri yükle
-        function loadUserData() {
-            const saved = localStorage.getItem('englishAppData');
-            if (saved) {
-                userData = { ...userData, ...JSON.parse(saved) };
-            }
-        }
-        
-        // LocalStorage'a veri kaydet
-        function saveUserData() {
-            localStorage.setItem('englishAppData', JSON.stringify(userData));
-        }
-        
-        // İstatistikleri güncelle
-        function updateStats() {
-            const total = wordsDatabase.length;
-            const known = userData.knownWords.length;
-            const learning = total - known;
+        // Ses sentezi kontrol
+        function speakWord() {
+            const word = testWords[currentWordIndex].eng;
             
-            document.getElementById('total-words').textContent = total;
-            document.getElementById('known-words').textContent = known;
-            document.getElementById('learning-words').textContent = learning;
-        }
-        
-        // Öğrenilecek kelimeleri al (bilinen kelimeler hariç)
-        function getWordsToLearn() {
-            return wordsDatabase.filter(word => !userData.knownWords.includes(word.eng));
-        }
-        
-        // Kelime kartını göster
-        function showCard() {
-            const wordsToLearn = getWordsToLearn();
-            
-            if (wordsToLearn.length === 0) {
-                document.getElementById('word-front').textContent = "🎉 Tebrikler!";
-                document.getElementById('word-back').textContent = "Tüm kelimeleri öğrendiniz!";
-                document.querySelector('.card-buttons').innerHTML = '<button class="btn btn-next" onclick="resetProgress()">Baştan Başla</button>';
+            // Eğer zaten konuşuyorsa dur
+            if (speechSynthesis.speaking) {
+                speechSynthesis.cancel();
+                hideSpeakingIndicator();
                 return;
             }
             
-            // Rastgele kelime seç
-            const randomIndex = Math.floor(Math.random() * wordsToLearn.length);
-            const currentWord = wordsToLearn[randomIndex];
+            // Ses sentezi oluştur
+            const utterance = new SpeechSynthesisUtterance(word);
+            utterance.lang = speechSettings.lang;
+            utterance.rate = speechSettings.rate;
+            utterance.pitch = speechSettings.pitch;
             
-            document.getElementById('word-front').textContent = currentWord.eng;
-            document.getElementById('word-back').textContent = currentWord.tr;
-            document.getElementById('word-back').classList.remove('show');
+            // Konuşma olayları
+            utterance.onstart = () => {
+                showSpeakingIndicator();
+                document.getElementById('speak-btn').textContent = '⏸️ Durdur';
+            };
             
-            // Butonları sıfırla
-            document.getElementById('show-btn').classList.remove('hidden');
-            document.querySelector('.btn-know').classList.add('hidden');
-            document.querySelector('.btn-dont-know').classList.add('hidden');
-            document.querySelector('.btn-next').classList.add('hidden');
+            utterance.onend = () => {
+                hideSpeakingIndicator();
+                document.getElementById('speak-btn').innerHTML = '🔊 Seslendir';
+            };
             
-            // Mevcut kelimeyi kaydet
-            window.currentWord = currentWord;
+            utterance.onerror = () => {
+                hideSpeakingIndicator();
+                document.getElementById('speak-btn').innerHTML = '🔊 Seslendir';
+                alert('Ses özelliği şu anda kullanılamıyor');
+            };
+            
+            // Konuş
+            speechSynthesis.speak(utterance);
         }
         
-        // Cevabı göster
-        function showAnswer() {
-            document.getElementById('word-back').classList.add('show');
-            document.getElementById('show-btn').classList.add('hidden');
-            document.querySelector('.btn-know').classList.remove('hidden');
-            document.querySelector('.btn-dont-know').classList.remove('hidden');
+        // Konuşma göstergesini göster
+        function showSpeakingIndicator() {
+            document.getElementById('speaking-indicator').classList.add('active');
         }
         
-        // Kelimeyi bilinen olarak işaretle
-        function markAsKnown() {
-            if (window.currentWord && !userData.knownWords.includes(window.currentWord.eng)) {
-                userData.knownWords.push(window.currentWord.eng);
-                saveUserData();
-                updateStats();
-                showNextButton("✓ Bilinen kelimeler listesine eklendi!");
+        // Konuşma göstergesini gizle
+        function hideSpeakingIndicator() {
+            document.getElementById('speaking-indicator').classList.remove('active');
+        }
+        
+        // Çeviriyi göster
+        function showTranslation() {
+            document.getElementById('word-turkish').classList.add('show');
+            document.getElementById('show-btn').style.opacity = '0.5';
+            document.getElementById('show-btn').disabled = true;
+        }
+        
+        // Sonraki kelime
+        function nextWord() {
+            // Konuşmayı durdur
+            speechSynthesis.cancel();
+            hideSpeakingIndicator();
+            
+            // Sonraki kelimeye geç
+            currentWordIndex = (currentWordIndex + 1) % testWords.length;
+            
+            // Kartı güncelle
+            updateCard();
+            
+            // Otomatik konuşma
+            if (autoSpeak) {
+                setTimeout(speakWord, 500);
             }
         }
         
-        // Kelimeyi bilmeyen olarak işaretle
-        function markAsUnknown() {
-            if (window.currentWord && !userData.unknownWords.includes(window.currentWord.eng)) {
-                userData.unknownWords.push(window.currentWord.eng);
-                saveUserData();
-                showNextButton("Tekrar gösterilecek");
-            }
-        }
-        
-        // Sonraki butonu göster
-        function showNextButton(message) {
-            document.querySelector('.btn-know').classList.add('hidden');
-            document.querySelector('.btn-dont-know').classList.add('hidden');
-            const nextBtn = document.querySelector('.btn-next');
-            nextBtn.classList.remove('hidden');
-            nextBtn.textContent = "Sonraki Kart";
-        }
-        
-        // Sonraki karta geç
-        function nextCard() {
-            showCard();
-        }
-        
-        // Bilinen kelimeleri listele
-        function showKnownWords() {
-            const container = document.getElementById('known-list');
+        // Kartı güncelle
+        function updateCard() {
+            const word = testWords[currentWordIndex];
             
-            if (userData.knownWords.length === 0) {
-                container.innerHTML = '<div class="empty-state"><h3>Henüz bilinen kelime yok</h3><p>Kartlarda kelimeleri öğrenmeye başla!</p></div>';
-                return;
-            }
+            document.getElementById('word-counter').textContent = `${currentWordIndex + 1} / ${testWords.length}`;
+            document.getElementById('word-english').textContent = word.eng;
+            document.getElementById('word-turkish').textContent = word.tr;
+            document.getElementById('word-turkish').classList.remove('show');
             
-            const knownWordsData = wordsDatabase.filter(word => userData.knownWords.includes(word.eng));
+            // Göster butonunu resetle
+            const showBtn = document.getElementById('show-btn');
+            showBtn.style.opacity = '1';
+            showBtn.disabled = false;
             
-            container.innerHTML = knownWordsData.map(word => `
-                <div class="word-item">
-                    <div class="word-info">
-                        <div class="word-eng">${word.eng}</div>
-                        <div class="word-tr">${word.tr}</div>
-                    </div>
-                    <div class="word-actions">
-                        <button class="btn-small btn-remove" onclick="removeFromKnown('${word.eng}')">Kaldır</button>
-                    </div>
-                </div>
-            `).join('');
+            // Seslendir butonunu resetle
+            document.getElementById('speak-btn').innerHTML = '🔊 Seslendir';
         }
         
-        // Tüm kelimeleri listele
-        function showAllWords() {
-            const container = document.getElementById('all-list');
-            
-            container.innerHTML = wordsDatabase.map(word => {
-                const isKnown = userData.knownWords.includes(word.eng);
-                return `
-                    <div class="word-item">
-                        <div class="word-info">
-                            <div class="word-eng">${word.eng} ${isKnown ? '✓' : ''}</div>
-                            <div class="word-tr">${word.tr}</div>
-                        </div>
-                        <div class="word-actions">
-                            ${isKnown ? 
-                                `<button class="btn-small btn-remove" onclick="removeFromKnown('${word.eng}')">Kaldır</button>` :
-                                `<button class="btn-small btn-add" onclick="addToKnown('${word.eng}')">Biliyorum</button>`
-                            }
-                        </div>
-                    </div>
-                `;
-            }).join('');
+        // Otomatik konuşmayı aç/kapat
+        function toggleAutoSpeak() {
+            autoSpeak = !autoSpeak;
+            const btn = document.getElementById('auto-btn');
+            btn.innerHTML = autoSpeak ? '🔄 Otomatik Açık' : '🔄 Otomatik Kapalı';
+            btn.style.background = autoSpeak ? 'rgba(34, 197, 94, 0.8)' : 'rgba(249, 115, 22, 0.8)';
         }
         
-        // Bilinen kelimelerden kaldır
-        function removeFromKnown(word) {
-            userData.knownWords = userData.knownWords.filter(w => w !== word);
-            saveUserData();
-            updateStats();
-            showKnownWords();
-            showAllWords();
-        }
-        
-        // Bilinen kelimelere ekle
-        function addToKnown(word) {
-            if (!userData.knownWords.includes(word)) {
-                userData.knownWords.push(word);
-                saveUserData();
-                updateStats();
-                showAllWords();
-            }
-        }
-        
-        // İlerlemeyi sıfırla
-        function resetProgress() {
-            if (confirm('Tüm ilerleme sıfırlanacak. Emin misiniz?')) {
-                userData.knownWords = [];
-                userData.unknownWords = [];
-                saveUserData();
-                updateStats();
-                showCard();
-            }
-        }
-        
-        // Bölüm göster
-        function showSection(section) {
-            // Nav butonları
-            document.querySelectorAll('.nav-btn').forEach(btn => btn.classList.remove('active'));
-            event.target.classList.add('active');
-            
-            // Bölümleri gizle
-            document.querySelectorAll('[id$="-section"]').forEach(el => el.classList.add('hidden'));
-            
-            // Seçilen bölümü göster
-            document.getElementById(section + '-section').classList.remove('hidden');
-            
-            // Bölüme özel işlemler
-            switch(section) {
-                case 'cards':
-                    showCard();
-                    break;
-                case 'known':
-                    showKnownWords();
-                    break;
-                case 'all':
-                    showAllWords();
-                    break;
-                case 'quiz':
-                    // Quiz henüz implementasyonda değil
-                    break;
-            }
+        // Ses ayarlarını güncelle
+        function updateVoiceSettings() {
+            speechSettings.rate = parseFloat(document.getElementById('rate-slider').value);
+            speechSettings.pitch = parseFloat(document.getElementById('pitch-slider').value);
+            speechSettings.lang = document.getElementById('voice-select').value;
         }
         
         // Sayfa yüklendiğinde
         window.onload = function() {
-            loadUserData();
-            updateStats();
-            showCard();
+            updateCard();
+            
+            // Ses sentezi uyumluluğunu kontrol et
+            if (!('speechSynthesis' in window)) {
+                alert('Bu tarayıcı ses özelliklerini desteklemiyor');
+                document.getElementById('speak-btn').disabled = true;
+            }
+        };
+        
+        // Sayfa kapandığında konuşmayı durdur
+        window.onbeforeunload = function() {
+            speechSynthesis.cancel();
         };
     </script>
 </body>
