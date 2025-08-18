@@ -7,352 +7,46 @@
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
     <meta name="apple-mobile-web-app-title" content="İngilizce">
     <title>İngilizce Öğrenme Uygulaması</title>
-    <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-        
-        body {
-            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-            background: linear-gradient(135deg, #1e40af 0%, #7c3aed 50%, #db2777 100%);
-            min-height: 100vh;
-            color: white;
-            padding: 20px;
-            overflow-x: hidden;
-        }
-        
-        .container {
-            max-width: 420px;
-            margin: 0 auto;
-        }
-        
-        .header {
-            text-align: center;
-            margin-bottom: 30px;
-            padding: 20px 0;
-        }
-        
-        .header h1 {
-            font-size: 32px;
-            font-weight: 700;
-            margin-bottom: 8px;
-            background: linear-gradient(45deg, #fbbf24, #f59e0b);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-        }
-        
-        .header p {
-            font-size: 16px;
-            opacity: 0.9;
-            font-weight: 300;
-        }
-        
-        .section {
-            background: rgba(255, 255, 255, 0.08);
-            backdrop-filter: blur(20px);
-            border-radius: 20px;
-            margin-bottom: 25px;
-            padding: 20px;
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            transition: all 0.3s ease;
-        }
-        
-        .section:hover {
-            background: rgba(255, 255, 255, 0.12);
-            transform: translateY(-2px);
-        }
-        
-        .section-header {
-            display: flex;
-            align-items: center;
-            gap: 12px;
-            margin-bottom: 18px;
-            cursor: pointer;
-        }
-        
-        .section-icon {
-            font-size: 24px;
-            width: 40px;
-            height: 40px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            background: rgba(255, 255, 255, 0.15);
-            border-radius: 12px;
-        }
-        
-        .section-title {
-            font-size: 20px;
-            font-weight: 600;
-            flex: 1;
-        }
-        
-        .expand-icon {
-            font-size: 18px;
-            transition: transform 0.3s ease;
-        }
-        
-        .section.expanded .expand-icon {
-            transform: rotate(180deg);
-        }
-        
-        .section-content {
-            max-height: 0;
-            overflow: hidden;
-            transition: max-height 0.4s ease;
-        }
-        
-        .section.expanded .section-content {
-            max-height: 1000px;
-        }
-        
-        .category {
-            margin-bottom: 20px;
-        }
-        
-        .category:last-child {
-            margin-bottom: 0;
-        }
-        
-        .category-title {
-            font-size: 16px;
-            font-weight: 600;
-            margin-bottom: 12px;
-            color: #fbbf24;
-            display: flex;
-            align-items: center;
-            gap: 8px;
-        }
-        
-        .level-badge {
-            font-size: 11px;
-            background: rgba(251, 191, 36, 0.2);
-            padding: 3px 8px;
-            border-radius: 12px;
-            border: 1px solid rgba(251, 191, 36, 0.3);
-        }
-        
-        .topics {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 8px;
-        }
-        
-        .topic {
-            background: rgba(255, 255, 255, 0.1);
-            padding: 12px;
-            border-radius: 12px;
-            font-size: 14px;
-            text-align: center;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            border: 1px solid rgba(255, 255, 255, 0.1);
-        }
-        
-        .topic:hover {
-            background: rgba(255, 255, 255, 0.2);
-            transform: scale(1.02);
-        }
-        
-        .topic:active {
-            transform: scale(0.98);
-        }
-        
-        /* Özel renkler */
-        .education .section-icon { background: rgba(59, 130, 246, 0.3); }
-        .words .section-icon { background: rgba(34, 197, 94, 0.3); }
-        .sentences .section-icon { background: rgba(168, 85, 247, 0.3); }
-        .exercises .section-icon { background: rgba(249, 115, 22, 0.3); }
-        
-        .footer {
-            text-align: center;
-            margin-top: 40px;
-            padding: 20px;
-            opacity: 0.7;
-            font-size: 14px;
-        }
-        
-        @media (max-width: 380px) {
-            .topics {
-                grid-template-columns: 1fr;
-            }
-            
-            .container {
-                padding: 0 10px;
-            }
-        }
-    </style>
+    
+    <!-- CSS dosyaları -->
+    <link rel="stylesheet" href="css/main.css">
+    <link rel="stylesheet" href="css/home.css">
+    <link rel="stylesheet" href="css/lesson.css">
 </head>
 <body>
-    <div class="container">
-        <div class="header">
-            <h1>🇬🇧 İngilizce Öğrenme</h1>
-            <p>Kapsamlı İngilizce Eğitim Platformu</p>
-        </div>
-        
-        <!-- EĞİTİM KONULARI -->
-        <div class="section education" onclick="toggleSection('education')">
-            <div class="section-header">
-                <div class="section-icon">📚</div>
-                <div class="section-title">Eğitim Konuları</div>
-                <div class="expand-icon">▼</div>
-            </div>
-            <div class="section-content">
-                <div class="category">
-                    <div class="category-title">
-                        <span>🌱 Başlangıç</span>
-                        <span class="level-badge">A1-A2</span>
-                    </div>
-                    <div class="topics">
-                        <div class="topic" onclick="openTopic('be-acilimi')">Be Açılımı</div>
-                        <div class="topic" onclick="openTopic('filli-cumleler')">Filli Cümleler</div>
-                    </div>
-                </div>
-                
-                <div class="category">
-                    <div class="category-title">
-                        <span>⚡ Kalfalık</span>
-                        <span class="level-badge">B1</span>
-                    </div>
-                    <div class="topics">
-                        <div class="topic" onclick="openTopic('edilgen-catili')">Edilgen Çatılı Fiiller</div>
-                        <div class="topic" onclick="openTopic('modal-verbs-1')">Modal Verbs-1</div>
-                        <div class="topic" onclick="openTopic('modal-verbs-2')">Modal Verbs-2</div>
-                    </div>
-                </div>
-                
-                <div class="category">
-                    <div class="category-title">
-                        <span>🔥 Ustalık</span>
-                        <span class="level-badge">B2</span>
-                    </div>
-                    <div class="topics">
-                        <div class="topic" onclick="openTopic('baglaclar-1')">Bağlaçlar-1</div>
-                        <div class="topic" onclick="openTopic('baglaclar-2')">Bağlaçlar-2</div>
-                        <div class="topic" onclick="openTopic('wh-how')">WH / HOW Kullanımı</div>
-                    </div>
-                </div>
-                
-                <div class="category">
-                    <div class="category-title">
-                        <span>👑 Mentor</span>
-                        <span class="level-badge">C1</span>
-                    </div>
-                    <div class="topics">
-                        <div class="topic" onclick="openTopic('if-clauses')">If Clauses</div>
-                        <div class="topic" onclick="openTopic('ettirgen-catili')">Ettirgen Çatılı Fiiller</div>
-                    </div>
-                </div>
-            </div>
-        </div>
-        
-        <!-- KELİME ÖĞREN -->
-        <div class="section words" onclick="toggleSection('words')">
-            <div class="section-header">
-                <div class="section-icon">💭</div>
-                <div class="section-title">Kelime Öğren</div>
-                <div class="expand-icon">▼</div>
-            </div>
-            <div class="section-content">
-                <div class="topics">
-                    <div class="topic" onclick="openTopic('isimler')">İsimler</div>
-                    <div class="topic" onclick="openTopic('fiiller')">Fiiller</div>
-                    <div class="topic" onclick="openTopic('sifatlar')">Sıfatlar</div>
-                    <div class="topic" onclick="openTopic('zarflar')">Zarflar</div>
-                    <div class="topic" onclick="openTopic('edatlar')">Edatlar</div>
-                    <div class="topic" onclick="openTopic('baglaclar')">Bağlaçlar</div>
-                    <div class="topic" onclick="openTopic('zamirler')">Zamirler</div>
-                    <div class="topic" onclick="openTopic('gunluk-hayat')">Günlük Hayat</div>
-                    <div class="topic" onclick="openTopic('is-ingilizcesi')">İş İngilizcesi</div>
-                    <div class="topic" onclick="openTopic('seyahat')">Seyahat</div>
-                    <div class="topic" onclick="openTopic('acil-durumlar')">Acil Durumlar</div>
-                    <div class="topic" onclick="openTopic('mental-fiiller')">Mental Fiiller</div>
-                </div>
-            </div>
-        </div>
-        
-        <!-- CÜMLELER -->
-        <div class="section sentences" onclick="toggleSection('sentences')">
-            <div class="section-header">
-                <div class="section-icon">💬</div>
-                <div class="section-title">Cümleler</div>
-                <div class="expand-icon">▼</div>
-            </div>
-            <div class="section-content">
-                <div class="topics">
-                    <div class="topic" onclick="openTopic('deyimler-ifadeler')">Deyimler&İfadeler</div>
-                    <div class="topic" onclick="openTopic('baglacli-cumleler')">Bağlaçlı Cümleler</div>
-                    <div class="topic" onclick="openTopic('gunluk-konusmalar')">Günlük Konuşmalar</div>
-                    <div class="topic" onclick="openTopic('fiilli-cumleler-basic')">Fiilli Cümleler(Basic)</div>
-                    <div class="topic" onclick="openTopic('be-cumleler')">"Be" Cümleler</div>
-                    <div class="topic" onclick="openTopic('edilgen-catili-cumleler')">Edilgen Çatılı</div>
-                    <div class="topic" onclick="openTopic('modal-verbs-cumleler')">Modal Verbs</div>
-                    <div class="topic" onclick="openTopic('wh-how-cumleler')">WH/HOW</div>
-                    <div class="topic" onclick="openTopic('if-clauses-cumleler')">If Clauses</div>
-                    <div class="topic" onclick="openTopic('ettirgen-catili-cumleler')">Ettirgen Çatılı</div>
-                    <div class="topic" onclick="openTopic('soru-cumleleri')">Soru Cümleleri</div>
-                    <div class="topic" onclick="openTopic('olumsuz-cumleler')">Olumsuz Cümleler</div>
-                </div>
-            </div>
-        </div>
-        
-        <!-- ALIŞTIRMALAR -->
-        <div class="section exercises" onclick="toggleSection('exercises')">
-            <div class="section-header">
-                <div class="section-icon">🎯</div>
-                <div class="section-title">Alıştırmalar</div>
-                <div class="expand-icon">▼</div>
-            </div>
-            <div class="section-content">
-                <div class="topics">
-                    <div class="topic" onclick="openTopic('kelimeler-alistirma')">Kelimeler</div>
-                    <div class="topic" onclick="openTopic('cumle-kurma-temel')">Cümle Kurma(Özne+Yüklem)</div>
-                    <div class="topic" onclick="openTopic('cumle-kurma-gelismis')">Cümle Kurma(Gelişmiş)</div>
-                </div>
-            </div>
-        </div>
-        
-        <div class="footer">
-            <p>🚀 Kişisel İngilizce Öğrenme Platformu</p>
-        </div>
+    <div id="app">
+        <!-- İçerik buraya yüklenecek -->
     </div>
 
-    <script>
-        // Bölüm açma/kapama
-        function toggleSection(sectionName) {
-            const section = document.querySelector(`.${sectionName}`);
-            section.classList.toggle('expanded');
-            
-            // Diğer bölümleri kapat (isteğe bağlı)
-            // document.querySelectorAll('.section').forEach(s => {
-            //     if (!s.classList.contains(sectionName)) {
-            //         s.classList.remove('expanded');
-            //     }
-            // });
-        }
-        
-        // Konu açma
-        function openTopic(topicId) {
-            // Click event'in parent'a bubble etmesini engelle
-            event.stopPropagation();
-            
-            // Henüz içerik yok, geliştirme aşamasında
-            alert(`"${topicId}" konusu açılacak.\n\nİçerik geliştirme aşamasında...`);
-            
-            // İleride burası şöyle olacak:
-            // window.location.href = `topic.html?id=${topicId}`;
-            // veya
-            // showTopicContent(topicId);
-        }
-        
-        // Sayfa yüklendiğinde ilk bölümü aç
-        window.onload = function() {
-            // İsteğe bağlı: İlk bölümü otomatik aç
-            // toggleSection('education');
-        };
-    </script>
+
+        <!-- ========== KELİME SİSTEMİ MODÜLLERİ ========== -->
+    <script src="assets/data/vocabulary/vocabulary-data.js"></script>
+    <script src="assets/data/vocabulary/flashcard-system.js"></script>
+    <script src="assets/data/vocabulary/progress-tracker.js"></script>
+    <script src="assets/data/vocabulary/study-modes.js"></script>
+
+        <!-- ========== ALIŞTIRMA SİSTEMİ MODÜLLERİ ========== -->
+    <script src="js/sentences/sentence-data.js"></script>
+    <script src="js/sentences/sentence-flashcard-system.js"></script>
+    <script src="js/sentences/sentence-progress-tracker.js"></script>
+    <script src="js/sentences/sentence-study-modes.js"></script>
+    <script src="js/sentences/sentence-app.js"></script>
+    
+    <!-- JavaScript dosyaları -->
+    <script src="js/router.js"></script>
+    <script src="js/modules/lesson-data.js"></script>
+    <script src="js/modules/home.js"></script>
+    <script src="js/modules/cumle-kurma.js"></script>
+    <script src="js/modules/be-acilimi.js"></script>
+    <script src="js/modules/fiilli-cumleler.js"></script>
+    <script src="js/modules/edilgen-catili.js"></script>
+    <script src="js/modules/modal-verbs-1.js"></script>
+    <script src="js/modules/modal-verbs-2.js"></script>
+    <script src="js/modules/baglaclar-1.js"></script>
+    <script src="js/modules/baglaclar-2.js"></script>
+    <script src="js/modules/wh-how.js"></script>
+    <script src="js/modules/if-clauses.js"></script>
+    <script src="js/modules/ettirgen-catili.js"></script>
+    <script src="js/app.js"></script>
 </body>
 </html>
